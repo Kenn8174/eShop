@@ -11,8 +11,13 @@ namespace DataBaseProgrammering3_Projekt
     {
         static void Main(string[] args)
         {
-            AddPhone();
-            ShowPhones();
+            Console.Write("Indtast Telefon navn: ");
+            string telefon = Console.ReadLine();
+
+
+            //AddPhone();
+            //ShowPhones();
+            showPhone(telefon);
         }
 
         static void ShowPhones()
@@ -29,6 +34,26 @@ namespace DataBaseProgrammering3_Projekt
                     foreach (var telefon in comp.Phone)
                     {
                         Console.WriteLine($"\tPhone name: {telefon.PhoneName} - Price: {telefon.Price}");
+                    }
+                }
+            }
+        }
+
+        static void showPhone(string phone)
+        {
+            using (var context = new ShopContext())
+            {
+                var test = context.Companies
+                    .Include(x => x.Phone)
+                    .Where(x => x.CompanyName == phone)
+                    .ToList();
+
+                foreach (var item in test)
+                {
+                    Console.WriteLine($"Firma: {item.CompanyName}");
+                    foreach (var telefon in item.Phone)
+                    {
+                        Console.WriteLine($"\tTelefon: {telefon.PhoneName}");
                     }
                 }
             }
