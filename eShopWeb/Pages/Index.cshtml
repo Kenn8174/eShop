@@ -1,0 +1,12 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@foreach (var item in Model.Phone)
+{
+    <p>@item.PhoneID</p>
+    <p>@item.Company.CompanyName</p>
+    <p>@item.PhoneName</p>
+}

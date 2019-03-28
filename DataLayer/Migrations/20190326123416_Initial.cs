@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataLayer.Migrations
 {
-    public partial class Initials : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,16 +22,20 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Users",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(nullable: false)
+                    UserID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 3, 21, 12, 58, 32, 430, DateTimeKind.Local).AddTicks(764))
+                    Username = table.Column<string>(nullable: true),
+                    Fornavn = table.Column<string>(nullable: true),
+                    Efternavn = table.Column<string>(nullable: true),
+                    Adresse = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,26 +60,22 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderLine",
+                name: "Orders",
                 columns: table => new
                 {
-                    PhoneID = table.Column<int>(nullable: false),
                     OrderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OrderDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 3, 26, 13, 34, 16, 69, DateTimeKind.Local).AddTicks(5079)),
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderLine", x => new { x.PhoneID, x.OrderID });
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
                     table.ForeignKey(
-                        name: "FK_OrderLine_Order_OrderID",
-                        column: x => x.OrderID,
-                        principalTable: "Order",
-                        principalColumn: "OrderID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderLine_Phones_PhoneID",
-                        column: x => x.PhoneID,
-                        principalTable: "Phones",
-                        principalColumn: "PhoneID",
+                        name: "FK_Orders_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -99,10 +99,40 @@ namespace DataLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderLines",
+                columns: table => new
+                {
+                    PhoneID = table.Column<int>(nullable: false),
+                    OrderID = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderLines", x => new { x.PhoneID, x.OrderID });
+                    table.ForeignKey(
+                        name: "FK_OrderLines_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderLines_Phones_PhoneID",
+                        column: x => x.PhoneID,
+                        principalTable: "Phones",
+                        principalColumn: "PhoneID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_OrderLine_OrderID",
-                table: "OrderLine",
+                name: "IX_OrderLines_OrderID",
+                table: "OrderLines",
                 column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserID",
+                table: "Orders",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Phones_CompanyID",
@@ -119,16 +149,19 @@ namespace DataLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderLine");
+                name: "OrderLines");
 
             migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Phones");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Companies");

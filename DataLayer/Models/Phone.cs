@@ -13,6 +13,6 @@ namespace DataLayer.Models
 
         public Company Company { get; set; }
         public Photo Photo { get; set; }
-        public ICollection<OrderLine> OrderLines { get; set; }
+        public ICollection<OrderLine> OrderLine { get; set; }
     }
 }

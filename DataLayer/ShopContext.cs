@@ -11,6 +11,8 @@ namespace DataLayer
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +31,7 @@ namespace DataLayer
             modelBuilder.Entity<Photo>().HasKey(k => k.PhotoID);
             modelBuilder.Entity<OrderLine>().HasKey(k => new { k.PhoneID, k.OrderID });
             modelBuilder.Entity<Order>().HasKey(k => k.OrderID);
+            modelBuilder.Entity<User>().HasKey(k => k.UserID);
 
             modelBuilder.Entity<Order>().Property(p => p.OrderDate).HasDefaultValue(DateTime.Now);
 
@@ -46,13 +49,18 @@ namespace DataLayer
 
             modelBuilder.Entity<OrderLine>()
                 .HasOne(x => x.Phone)
-                .WithMany(x => x.OrderLines)
+                .WithMany(x => x.OrderLine)
                 .HasForeignKey(x => x.PhoneID);
 
             modelBuilder.Entity<OrderLine>()
                 .HasOne(x => x.Order)
-                .WithMany(x => x.OrderLines)
+                .WithMany(x => x.OrderLine)
                 .HasForeignKey(x => x.OrderID);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.Users)
+                .WithMany(x => x.Order)
+                .HasForeignKey(x => x.UserID);
         }
     }
 }

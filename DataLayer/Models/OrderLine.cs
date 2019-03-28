@@ -8,6 +8,7 @@ namespace DataLayer.Models
     {
         public int PhoneID { get; set; }
         public int OrderID { get; set; }
+        public int Amount { get; set; }
         
         public Phone Phone { get; set; }
         public Order Order { get; set; }

@@ -4,14 +4,16 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20190326123416_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace DataLayer.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(new DateTime(2019, 3, 26, 13, 35, 44, 321, DateTimeKind.Local).AddTicks(2596));
+                        .HasDefaultValue(new DateTime(2019, 3, 26, 13, 34, 16, 69, DateTimeKind.Local).AddTicks(5079));
 
                     b.Property<int>("UserID");
 
@@ -104,7 +106,7 @@ namespace DataLayer.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("DataLayer.Models.User", b =>
+            modelBuilder.Entity("DataLayer.Models.Users", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -122,12 +124,12 @@ namespace DataLayer.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DataLayer.Models.Order", b =>
                 {
-                    b.HasOne("DataLayer.Models.User", "Users")
+                    b.HasOne("DataLayer.Models.Users", "Users")
                         .WithMany("Order")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
