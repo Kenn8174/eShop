@@ -8,7 +8,9 @@ namespace DataLayer.Models
     {
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
+        public int UserID { get; set; }
 
         public ICollection<OrderLine> OrderLine { get; set; }
+        public User Users { get; set; }
     }
 }

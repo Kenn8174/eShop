@@ -31,6 +31,7 @@ namespace DataLayer
             modelBuilder.Entity<Photo>().HasKey(k => k.PhotoID);
             modelBuilder.Entity<OrderLine>().HasKey(k => new { k.PhoneID, k.OrderID });
             modelBuilder.Entity<Order>().HasKey(k => k.OrderID);
+            modelBuilder.Entity<User>().HasKey(k => k.UserID);
 
             modelBuilder.Entity<Order>().Property(p => p.OrderDate).HasDefaultValue(DateTime.Now);
 
@@ -55,6 +56,11 @@ namespace DataLayer
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderLine)
                 .HasForeignKey(x => x.OrderID);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.Users)
+                .WithMany(x => x.Order)
+                .HasForeignKey(x => x.UserID);
         }
     }
 }

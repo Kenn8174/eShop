@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20190321115832_Initials")]
-    partial class Initials
+    [Migration("20190326123544_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,11 +42,15 @@ namespace DataLayer.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(new DateTime(2019, 3, 21, 12, 58, 32, 430, DateTimeKind.Local).AddTicks(764));
+                        .HasDefaultValue(new DateTime(2019, 3, 26, 13, 35, 44, 321, DateTimeKind.Local).AddTicks(2596));
+
+                    b.Property<int>("UserID");
 
                     b.HasKey("OrderID");
 
-                    b.ToTable("Order");
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("DataLayer.Models.OrderLine", b =>
@@ -55,11 +59,13 @@ namespace DataLayer.Migrations
 
                     b.Property<int>("OrderID");
 
+                    b.Property<int>("Amount");
+
                     b.HasKey("PhoneID", "OrderID");
 
                     b.HasIndex("OrderID");
 
-                    b.ToTable("OrderLine");
+                    b.ToTable("OrderLines");
                 });
 
             modelBuilder.Entity("DataLayer.Models.Phone", b =>
@@ -100,15 +106,44 @@ namespace DataLayer.Migrations
                     b.ToTable("Photos");
                 });
 
+            modelBuilder.Entity("DataLayer.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adresse");
+
+                    b.Property<string>("Efternavn");
+
+                    b.Property<string>("Fornavn");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("DataLayer.Models.Order", b =>
+                {
+                    b.HasOne("DataLayer.Models.User", "Users")
+                        .WithMany("Order")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DataLayer.Models.OrderLine", b =>
                 {
                     b.HasOne("DataLayer.Models.Order", "Order")
-                        .WithMany("OrderLines")
+                        .WithMany("OrderLine")
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DataLayer.Models.Phone", "Phone")
-                        .WithMany("OrderLines")
+                        .WithMany("OrderLine")
                         .HasForeignKey("PhoneID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

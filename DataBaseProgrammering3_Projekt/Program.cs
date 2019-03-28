@@ -11,13 +11,14 @@ namespace DataBaseProgrammering3_Projekt
     {
         static void Main(string[] args)
         {
-            Console.Write("Indtast Telefon navn: ");
-            string telefon = Console.ReadLine();
+            //Console.Write("Indtast Telefon navn: ");
+            //string telefon = Console.ReadLine();
 
 
             //AddPhone();
             //ShowPhones();
-            showPhone(telefon);
+            //showPhone(telefon);
+            //RemovePhone();
         }
 
         static void ShowPhones()
@@ -76,6 +77,19 @@ namespace DataBaseProgrammering3_Projekt
                 };
 
                 context.Companies.Add(addPhone);
+                context.SaveChanges();
+            }
+        }
+
+        static void RemovePhone()
+        {
+            using (var context = new ShopContext())
+            {
+                var remove = context.Phones
+                    .Include(x => x.Company)
+                    .Where(x => x.CompanyID == 1);
+
+                context.Remove(remove);
                 context.SaveChanges();
             }
         }
