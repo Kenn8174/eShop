@@ -8,20 +8,22 @@ namespace DataLayer
 {
     public class ShopContext : DbContext
     {
+        public ShopContext(DbContextOptions<ShopContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=eShopDB;Trusted_Connection=True;")
-                .EnableSensitiveDataLogging(true)
-                .UseLoggerFactory(new ServiceCollection()
-                .AddLogging(builder => builder.AddConsole()
-                    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
-                    .BuildServiceProvider().GetService<ILoggerFactory>());
+                .EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
