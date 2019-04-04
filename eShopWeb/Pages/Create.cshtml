@@ -13,6 +13,13 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Phone.Company.CompanyName" class="control-label"></label>
+                <select asp-for="Phone.Company.CompanyName" asp-items="Model.Firma" class="form-control col-6">
+                    <option value="">All</option>
+                </select>
+                <span asp-validation-for="Phone.Company.CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Phone.PhoneName" class="control-label"></label>
                 <input asp-for="Phone.PhoneName" class="form-control col-6" />
                 <span asp-validation-for="Phone.PhoneName" class="text-danger"></span>
@@ -23,14 +30,9 @@
                 <span asp-validation-for="Phone.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone.Company.CompanyName" class="control-label"></label>
-                <div class="form-inline">
-                    <select asp-for="Phone.Company.CompanyName" asp-items="Model.Firma" class="form-control col-6">
-                        <option value="">All</option>
-                    </select>
-                    <a asp-page="/AddCompany" class="btn btn-success ml-2">Tilføj Firma</a>
-                </div>
-                <span asp-validation-for="Phone.Company.CompanyName" class="text-danger"></span>
+                <label asp-for="Phone.Photo.PhonePhoto" class="control-label"></label>
+                <input asp-for="Phone.Photo.PhonePhoto" class="form-control col-6" />
+                <span asp-validation-for="Phone.Photo.PhonePhoto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -7,6 +7,7 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 using ServiceLayer;
 
 namespace eShopWeb.Pages
@@ -14,11 +15,16 @@ namespace eShopWeb.Pages
     public class CreateModel : PageModel
     {
         private readonly IShopService _shopservice;
+        private readonly IMemoryCache _cache;
 
-        public CreateModel(IShopService shopservice)
+        public CreateModel(IShopService shopservice, IMemoryCache cache)
         {
             _shopservice = shopservice;
+            _cache = cache;
         }
+
+        [TempData]
+        public string TempTest { get; set; }
 
         [BindProperty]
         public Phone Phone { get; set; }
@@ -38,9 +44,13 @@ namespace eShopWeb.Pages
                 return Page();
             }
 
+            _cache.Remove("PhoneKey");
+
             await _shopservice.CreatePhone(Phone);
 
             await _shopservice.Commit();
+
+            TempTest = Phone.PhoneName + " Blev oprettet";
 
             return RedirectToPage("/Index");
         }

@@ -33,9 +33,21 @@ namespace eShopWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //services.AddSingleton<IDateTime, SystemDateTime>();
+            //services.AddTransient<IDateTime, SystemDateTime>();
+            //services.AddScoped<IDateTime, SystemDateTime>();
+                       
             services.AddScoped<IShopService, ShopService>();
             services.AddDbContext<ShopContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddMiniProfiler(options =>
+            {
+                options.PopupShowTimeWithChildren = true;
+            })
+            .AddEntityFramework();
+
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,10 +56,18 @@ namespace eShopWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+                //app.UseStatusCodePagesWithRedirects("/Error");
+                //app.UseStatusCodePagesWithReExecute("/Error");
+                //app.UseStatusCodePages();
+                //app.UseDatabaseErrorPage();
+
+                app.UseMiniProfiler();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -56,7 +76,22 @@ namespace eShopWeb
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+           
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("hej 1!");
+
+            //    await next();
+            //});
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("den anden!");
+            //});
+
             app.UseMvc();
+
         }
     }
 }

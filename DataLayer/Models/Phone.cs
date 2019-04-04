@@ -7,7 +7,9 @@ namespace DataLayer.Models
 {
     public class Phone
     {
+        [Display(Name = "ID")]
         public int PhoneID { get; set; }
+
         public int CompanyID { get; set; }
 
         [StringLength(maximumLength: 30)]

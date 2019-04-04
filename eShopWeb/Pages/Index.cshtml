@@ -2,25 +2,88 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    //Response.Cookies.Append("MyCookie", "hej");
+    //var cookieValue = Request.Cookies["MyCookie"];
 }
 
-<div class="row">
+@*<h1>@ViewData["test"]</h1>*@
+@*<h1>@ViewData["Message"]</h1>*@
+
+@*<h1>@cookieValue</h1>*@
+<h3>@TempData["TempTest"]</h3>
+
+<form>
+    <div class="row">
+        <div class="col-3">
+            Firma navn:
+            <select asp-for="FirmaNavn" asp-items="Model.Firma" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-3">
+            Sorter:
+            <select asp-for="SortPhone" class="form-control">
+                <option value="">Vælg</option>
+                <option value="PhoneName">Telefon navn</option>
+                <option value="CompanyName">Firma navn</option>
+                <option value="Price">Pris</option>
+            </select>
+        </div>
+        <div class="col-6">
+            Telefonens navn: 
+            <div class="row">
+                <div class="col-10">
+                    <input class="form-control" type="text" asp-for="SearchString" />
+                </div>
+                <div class="col-2">
+                    <input type="submit" value="Filter" class="btn btn-primary form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="p-2 row mt-5 bg-light">
     @foreach (var item in Model.Phone)
     {
-        <div class="col-4">
-            <div class="card border-dark mb-3">
+        <div class="col-3">
+            <div class="card mb-4 grow-shadow">
                 <div class="card-header"><h2>@item.Company.CompanyName</h2></div>
-                <img class="card-img"/>
+                @if (!string.IsNullOrEmpty(item.Photo.PhonePhoto))
+                {
+                    <img style="height: 16rem; width: 100%" class="card-img" src="@item.Photo.PhonePhoto" />
+                }
+                else
+                {
+                    <img style="height: 16rem; width: 100%" class="card-img" src="~/notfound.png" />
+                }
                 <div class="card-body text-dark">
                     <h4>@item.PhoneName</h4>
-                    <p class="font-weight-bold">$@item.Price</p>
-                </div>
-                <div class="card-footer border-dark bg-transparent">
-                    <a asp-page="/Edit" asp-route-id="@item.PhoneID" class="btn btn-success">Redigere</a>
-                    <a asp-page="/Delete" asp-route-id="@item.PhoneID" class="btn btn-danger">Slet</a>
-                    <a class="btn btn-warning float-right">Tilføj</a>
+                    @if (item.Price <= 0)
+                    {
+                        <p class="font-weight-bold text-success">GRATIS</p>
+                    }
+                    else
+                    {
+                        <p class="font-weight-bold">$@item.Price</p>
+                    }
+                    @*<form asp-page-handler="add" method="post">
+                    <button type="submit" value="ADD TO CART" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue"/>*@
+                    <a class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">ADD TO CART</a>
+                    @*</form>*@
                 </div>
             </div>
         </div>
     }
+</div>
+
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item" @(i == Model.CurrentPage ? "active" : "")>
+                <a asp-route-currentpage="@i" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
 </div>

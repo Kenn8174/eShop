@@ -8,7 +8,7 @@ namespace DataLayer.Models
     {
         public int PhotoID { get; set; }
         public int PhoneID { get; set; }
-        public byte[] PhonePhoto { get; set; }
+        public string PhonePhoto { get; set; }
 
         public Phone Phone { get; set; }
     }
