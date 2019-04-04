@@ -14,7 +14,7 @@ namespace DataLayer.Migrations
                 {
                     CompanyID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(nullable: true)
+                    CompanyName = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,7 @@ namespace DataLayer.Migrations
                     PhoneID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CompanyID = table.Column<int>(nullable: false),
-                    PhoneName = table.Column<string>(nullable: true),
+                    PhoneName = table.Column<string>(maxLength: 30, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(30,2)", nullable: false)
                 },
                 constraints: table =>
@@ -65,7 +65,7 @@ namespace DataLayer.Migrations
                 {
                     OrderID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 3, 26, 13, 34, 16, 69, DateTimeKind.Local).AddTicks(5079)),
+                    OrderDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 4, 1, 14, 32, 40, 885, DateTimeKind.Local).AddTicks(6287)),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -86,7 +86,7 @@ namespace DataLayer.Migrations
                     PhotoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PhoneID = table.Column<int>(nullable: false),
-                    PhonePhoto = table.Column<byte[]>(nullable: true)
+                    PhonePhoto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

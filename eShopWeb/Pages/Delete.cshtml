@@ -1,0 +1,24 @@
+﻿@page "{id:int?}"
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Er du sikker på at du vil slette denne telefon?</h1>
+
+<div class="col-4 m-5">
+    <div class="card border-dark mb-3">
+        <div class="card-header"><h2>@Model.Phone.Company.CompanyName</h2></div>
+        <img class="card-img" />
+        <div class="card-body text-dark">
+            <h4>@Model.Phone.PhoneName</h4>
+            <p class="font-weight-bold">$@Model.Phone.Price</p>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Phone.PhoneID" />
+    <input type="submit" value="Delete" class="btn btn-default" /> |
+    <a asp-page="./Index">Back to List</a>
+</form>

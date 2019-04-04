@@ -1,0 +1,68 @@
+﻿@page
+@model AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Admin</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone[0].PhoneID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone[0].PhoneName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone[0].Company.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone[0].Price)
+            </th>
+            <th>
+                Redigere
+            </th>
+            <th>
+                Slet
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Phone)
+        {
+            <tr>
+                <td>
+                    @item.PhoneID
+                </td>
+                <td>
+                    @item.PhoneName
+                </td>
+                <td>
+                    @item.Company.CompanyName
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    <a asp-page="/Edit" asp-route-id="@item.PhoneID" class="fas fa-edit"></a>
+                </td>
+                <td>
+                    <a asp-page="/Delete" asp-route-id="@item.PhoneID" class="fas fa-trash"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item" @(i == Model.CurrentPage ? "active" : "")>
+                <a asp-route-currentpage="@i" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
+</div>

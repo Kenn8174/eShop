@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20190326123544_Initialize")]
-    partial class Initialize
+    [Migration("20190401123241_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,9 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CompanyName");
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.HasKey("CompanyID");
 
@@ -42,7 +44,7 @@ namespace DataLayer.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(new DateTime(2019, 3, 26, 13, 35, 44, 321, DateTimeKind.Local).AddTicks(2596));
+                        .HasDefaultValue(new DateTime(2019, 4, 1, 14, 32, 40, 885, DateTimeKind.Local).AddTicks(6287));
 
                     b.Property<int>("UserID");
 
@@ -76,7 +78,9 @@ namespace DataLayer.Migrations
 
                     b.Property<int>("CompanyID");
 
-                    b.Property<string>("PhoneName");
+                    b.Property<string>("PhoneName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(30,2)");
@@ -96,7 +100,7 @@ namespace DataLayer.Migrations
 
                     b.Property<int>("PhoneID");
 
-                    b.Property<byte[]>("PhonePhoto");
+                    b.Property<string>("PhonePhoto");
 
                     b.HasKey("PhotoID");
 
@@ -124,7 +128,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DataLayer.Models.Order", b =>
