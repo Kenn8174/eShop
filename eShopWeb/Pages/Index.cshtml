@@ -67,10 +67,13 @@
                     {
                         <p class="font-weight-bold">$@item.Price</p>
                     }
-                    @*<form asp-page-handler="add" method="post">
-                    <button type="submit" value="ADD TO CART" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue"/>*@
-                    <a class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">ADD TO CART</a>
-                    @*</form>*@
+
+                    <form asp-page="./AddOrder" asp-page-handler="add" asp-route-id="@item.PhoneID" method="post">
+                        <button type="submit" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">
+                             ADD TO CART
+                        </button>
+                        @*<a class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">ADD TO CART</a>*@
+                    </form>
                 </div>
             </div>
         </div>

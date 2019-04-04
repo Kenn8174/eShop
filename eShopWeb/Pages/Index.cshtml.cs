@@ -77,7 +77,6 @@ namespace eShopWeb.Pages
                 return new SelectList(await _shopservice.GetPhoneFirma());
             });
 
-
             return Page();
         }
 
