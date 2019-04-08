@@ -9,9 +9,7 @@ namespace DataLayer
     public class ShopContext : DbContext
     {
         public ShopContext(DbContextOptions<ShopContext> options)
-            : base(options)
-        {
-        }
+            : base(options){ }
 
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Company> Companies { get; set; }

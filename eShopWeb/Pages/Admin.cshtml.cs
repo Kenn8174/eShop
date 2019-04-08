@@ -6,6 +6,7 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ServiceLayer;
+using ServiceLayer.ShopService;
 
 namespace eShopWeb.Pages
 {

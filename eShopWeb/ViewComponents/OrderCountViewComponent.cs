@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using eShopWeb.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ServiceLayer;
+using ServiceLayer.ShopService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +20,33 @@ namespace eShopWeb.ViewComponents
             _shopService = shopService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
-        {
-            var count = await _shopService.GetCount();
+        //public int id { get; set; }
 
-            return View(count);
+        public IViewComponentResult Invoke()
+        {
+            List<Basket> baskets = new List<Basket>();
+            List<BasketItem> basketItems = new List<BasketItem>();
+
+            if (HttpContext.Session.Get("Basket") != null)
+            {
+                try
+                {
+                    baskets = JsonConvert.DeserializeObject<List<Basket>>(HttpContext.Session.GetString("Basket"));
+                }
+                catch (Exception)
+                {
+                }
+                foreach (Basket item in baskets)
+                {
+                    basketItems.Add(new BasketItem
+                    {
+                        Kurven = item,
+                        Butikken = _shopService.GetPhones().Where(ll => ll.PhoneID == item.ProductID).First()
+                    });
+                }
+            }
+
+            return View(basketItems);
         }
     }
 }

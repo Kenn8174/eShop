@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
 using ServiceLayer;
+using ServiceLayer.ShopService;
 
 namespace eShopWeb.Pages
 {
@@ -33,7 +34,7 @@ namespace eShopWeb.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Firma = new SelectList(await _shopservice.GetPhoneFirma());
+            Firma = new SelectList(await _shopservice.GetPhoneFirma(), nameof(Company.CompanyID), nameof(Company.CompanyName));
             return Page();
         }
 

@@ -7,17 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using ServiceLayer;
+using ServiceLayer.ShopService;
 
 namespace eShopWeb.Pages
 {
     public class EditModel : PageModel
     {
         private readonly IShopService _shopservice;
+        private readonly IMemoryCache _cache;
 
-        public EditModel(IShopService shopservice)
+        public EditModel(IShopService shopservice, IMemoryCache cache)
         {
             _shopservice = shopservice;
+            _cache = cache;
         }
 
         [BindProperty]
@@ -27,7 +31,7 @@ namespace eShopWeb.Pages
         public async Task<IActionResult> OnGetAsync(int? id)
         {
 
-            Firma = new SelectList(await _shopservice.GetPhoneFirma());
+            Firma = new SelectList(await _shopservice.GetPhoneFirma(), nameof(Company.CompanyID), nameof(Company.CompanyName));
             Phone = await _shopservice.GetEditAsync(id);
 
             if (id == null)
@@ -50,11 +54,9 @@ namespace eShopWeb.Pages
                 return Page();
             }
 
-            _shopservice.CheckState(Phone);
-
             try
             {
-                await _shopservice.Commit();
+                await _shopservice.UpdatePhone(Phone, Phone.PhoneID);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,6 +70,7 @@ namespace eShopWeb.Pages
                 }
             }
 
+            _cache.Remove("PhoneKey");
             return RedirectToPage("/Index");
         }
     }

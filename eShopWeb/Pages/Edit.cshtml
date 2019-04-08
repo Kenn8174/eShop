@@ -14,6 +14,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Phone.PhoneID" />
             <div class="form-group">
+                <label asp-for="Phone.Company.CompanyName" class="control-label"></label>
+                <select asp-for="Phone.CompanyID" asp-items="Model.Firma" class="form-control col-6">
+                    <option value="">All</option>
+                </select>
+                <span asp-validation-for="Phone.Company.CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Phone.PhoneName" class="control-label"></label>
                 <input asp-for="Phone.PhoneName" class="form-control col-6" />
                 <span asp-validation-for="Phone.PhoneName" class="text-danger"></span>
@@ -24,24 +31,21 @@
                 <span asp-validation-for="Phone.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone.Company.CompanyName" class="control-label"></label>
-                <select asp-for="Phone.Company.CompanyName" asp-items="Model.Firma" class="form-control col-6">
-                    <option value="">All</option>
-                </select>
-                <span asp-validation-for="Phone.Company.CompanyName" class="text-danger"></span>
+                <label asp-for="Phone.Photo.PhonePhoto" class="control-label"></label>
+                <input asp-for="Phone.Photo.PhonePhoto" class="form-control col-6" />
+                <span asp-validation-for="Phone.Photo.PhonePhoto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Gem" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+<partial name="_PartialForm" />
+
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

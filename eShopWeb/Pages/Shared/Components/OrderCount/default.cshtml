@@ -1,3 +1,69 @@
-﻿@model int
+﻿@model IEnumerable<eShopWeb.Models.BasketItem>
 
-@Model
+
+<div class="modal fade" id="IndkøbsKurv" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div style="width: 100rem" class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Indkøbs Kurven</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Model.Count() != 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="container mb-2 border">
+                            <div class="row">
+                                <div class="col-3">
+                                    @if (string.IsNullOrEmpty(item.Butikken.PhonePhoto))
+                                    {
+                                        <img src="~/notfound.png" alt="@item.Butikken.PhoneName" style="height: 9rem; width: 100%" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@item.Butikken.PhonePhoto" alt="@item.Butikken.PhoneName" style="height: 9rem; width: 100%" />
+                                    }
+                                </div>
+                                <div class="col-6">
+
+                                    <p class="font-weight-bold">Produkt ID: @item.Kurven.ProductID</p>
+                                    <p class="font-weight-bold">Telefon: @item.Butikken.CompanyName @item.Butikken.PhoneName</p>
+                                    @if (item.Butikken.Price == 0)
+                                    {
+                                        <p class="text-success font-weight-bold">GRATIS</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="font-weight-bold">Pris: $@(item.Butikken.Price * item.Kurven.Amount)</p>
+                                    }
+                                    <p class="font-weight-bold">Antal: @item.Kurven.Amount</p>
+
+                                </div>
+                                <div class="col-3">
+                                    <form asp-page="AddOrder" asp-page-handler="DeleteOrder" asp-route-id="@item.Kurven.ProductID" method="post">
+                                        <button type="submit" class="btn btn-danger float-right text-white fas fa-cart-arrow-down">
+                                            DELETE
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3>Der er ingen varer i kurven</h3>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
