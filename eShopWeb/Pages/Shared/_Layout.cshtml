@@ -38,7 +38,7 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        <a class="nav-link text-dark fas fa-shopping-cart" asp-area="" asp-page="/IndkøbsKurv">CART( @await Component.InvokeAsync("OrderCount") )</a>
+                        <button class="btn btn-primary p-2 text-white fas fa-shopping-cart" type="button" data-toggle="modal" data-target="#IndkøbsKurv">CART( @*@await Component.InvokeAsync("OrderCount")*@ )</button>
                     </form>
                 </div>
             </div>

@@ -1,12 +1,13 @@
 ﻿using DataLayer;
 using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.ShopService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceLayer
+namespace ServiceLayer.ShopService
 {
     public class ShopService : IShopService
     {
@@ -17,6 +18,18 @@ namespace ServiceLayer
             _shopcontext = shopcontext;
         }
 
+        public IQueryable<ShopDTO> GetPhones()
+        {
+            return (from p in _shopcontext.Phones
+                    select new ShopDTO
+                    {
+                        PhoneID = p.PhoneID,
+                        Price = p.Price,
+                        PhoneName = p.PhoneName,
+                        PhonePhoto = p.Photo.PhonePhoto,
+                        CompanyName = p.Company.CompanyName
+                    });
+        }
 
         public async Task<List<Phone>> GetPhonesAsync(string SearchString, string FirmaNavn, string SortPhone/*, int CurrentPage, int PageSize*/)
         {
@@ -33,7 +46,7 @@ namespace ServiceLayer
 
             if (!string.IsNullOrEmpty(FirmaNavn))
             {
-                telefoner = telefoner.Where(f => f.Company.CompanyName == FirmaNavn);
+                telefoner = telefoner.Where(f => f.CompanyID == Convert.ToInt32(FirmaNavn));
             }
 
             if (!string.IsNullOrEmpty(SortPhone))
@@ -44,13 +57,26 @@ namespace ServiceLayer
                         telefoner = telefoner.OrderBy(x => x.PhoneName);
                         break;
 
+                    case "PhoneNameDESC":
+                        telefoner = telefoner.OrderByDescending(x => x.PhoneName);
+                        break;
+
                     case "CompanyName":
                         telefoner = telefoner.OrderBy(x => x.Company.CompanyName);
+                        break;
+
+                    case "CompanyNameDESC":
+                        telefoner = telefoner.OrderByDescending(x => x.Company.CompanyName);
                         break;
 
                     case "Price":
                         telefoner = telefoner.OrderBy(x => x.Price);
                         break;
+
+                    case "PriceDESC":
+                        telefoner = telefoner.OrderByDescending(x => x.Price);
+                        break;
+
                 }
             }
 
@@ -68,13 +94,18 @@ namespace ServiceLayer
             return telefoner;
         }
 
-        public async Task<List<string>> GetPhoneFirma()
-        {
-            IQueryable<string> firmaQuery = from f in _shopcontext.Companies
-                                            orderby f.CompanyName
-                                            select f.CompanyName;
+        //public async Task<List<string>> GetPhoneFirma()
+        //{
+        //    IQueryable<string> firmaQuery = from f in _shopcontext.Companies
+        //                                    orderby f.CompanyName
+        //                                    select f.CompanyName;
 
-            return await firmaQuery.Distinct().ToListAsync();
+        //    return await firmaQuery.Distinct().ToListAsync();
+        //}
+
+        public async Task<IEnumerable<Company>> GetPhoneFirma()
+        {
+            return await _shopcontext.Companies.ToListAsync();
         }
 
         public async Task<int> CreatePhone(Phone phone)
@@ -83,15 +114,9 @@ namespace ServiceLayer
             return 0;
         }
 
-        //public async Task<int> AddOrder()
-        //{
-        //    await _shopcontext.Orders.AddAsync();
-        //    return 0;
-        //}
-
         public async Task<Phone> GetEditAsync(int? id)
         {
-            return await _shopcontext.Phones.Include(x => x.Company).FirstOrDefaultAsync(p => p.PhoneID == id);
+            return await _shopcontext.Phones.Include(x => x.Company).Include(x => x.Photo).FirstOrDefaultAsync(p => p.PhoneID == id);
         }
 
         public async Task<int> GetCount()
@@ -100,29 +125,33 @@ namespace ServiceLayer
             return data.Count();
         }
 
-        //public async Task<List<Phone>> GetPaginatedResult(int currentPage, int pageSize = 3)
-        //{
-        //    var data = await GetPhoneListAsync();
-        //    //var data = await _shopcontext.Phones.ToListAsync();
-        //    return data.OrderBy(x => x.PhoneID).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-        //}
-
         public async Task<int> GetPageCount()
         {
-            //var data = await GetPhoneListAsync();
             var data = await _shopcontext.Phones.ToListAsync();
             return data.Count();
+        }
+
+        public async Task UpdatePhone(Phone phone, int id)
+        {
+                    //Virker ikke pga En til En relation med Photo!
+            //_shopcontext.Attach(phone).State = EntityState.Modified;
+
+
+                    //Virker
+            var edit =_shopcontext.Phones.Include(x => x.Company).Include(x => x.Photo).Where(x => x.PhoneID == id).First();
+
+            edit.Price = phone.Price;
+            edit.Photo.PhonePhoto = phone.Photo.PhonePhoto;
+            edit.PhoneName = phone.PhoneName;
+            edit.CompanyID = phone.CompanyID;
+
+            await Commit();
         }
 
         public async Task<int> Commit()
         {
             await _shopcontext.SaveChangesAsync();
             return 0;
-        }
-
-        public void CheckState(Phone phone)
-        {
-             _shopcontext.Attach(phone).State = EntityState.Modified;
         }
 
         public bool CheckExist(int id)

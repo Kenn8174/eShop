@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLayer;
+using ServiceLayer.ShopService;
 
 namespace eShopWeb
 {
@@ -51,6 +52,7 @@ namespace eShopWeb
             })
             .AddEntityFramework();
 
+            services.AddSession();
             services.AddMemoryCache();
         }
 
@@ -79,7 +81,7 @@ namespace eShopWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
            
 
             //app.Use(async (context, next) =>

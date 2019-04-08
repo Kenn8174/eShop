@@ -9,8 +9,18 @@
 @*<h1>@ViewData["test"]</h1>*@
 @*<h1>@ViewData["Message"]</h1>*@
 
-@*<h1>@cookieValue</h1>*@
-<h3>@TempData["TempTest"]</h3>
+@*<h1>@cookieValue</h1>
+    <h3>@TempData["TempTest"]</h3>*@
+@*@if (Model.basket != null)
+{
+    @foreach (var item in Model.basket)
+    {
+        <p>@item.ProductID</p>
+        <p>@item.Amount</p>
+    }
+}*@
+
+<vc:order-count></vc:order-count>
 
 <form>
     <div class="row">
@@ -24,13 +34,16 @@
             Sorter:
             <select asp-for="SortPhone" class="form-control">
                 <option value="">Vælg</option>
-                <option value="PhoneName">Telefon navn</option>
-                <option value="CompanyName">Firma navn</option>
-                <option value="Price">Pris</option>
+                <option value="PhoneName">Telefon navn (A - Z)</option>
+                <option value="PhoneNameDESC">Telefon navn (Z -A)</option>
+                <option value="CompanyName">Firma (A - Z)</option>
+                <option value="CompanyNameDESC">Firma (Z -A)</option>
+                <option value="Price">Pris (Lav - Høj)</option>
+                <option value="PriceDESC">Pris (Høj - Lav)</option>
             </select>
         </div>
         <div class="col-6">
-            Telefonens navn: 
+            Telefonens navn:
             <div class="row">
                 <div class="col-10">
                     <input class="form-control" type="text" asp-for="SearchString" />
@@ -68,9 +81,9 @@
                         <p class="font-weight-bold">$@item.Price</p>
                     }
 
-                    <form asp-page="./AddOrder" asp-page-handler="add" asp-route-id="@item.PhoneID" method="post">
+                    <form asp-page="AddOrder" asp-page-handler="AddOrder" asp-route-id="@item.PhoneID" method="post">
                         <button type="submit" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">
-                             ADD TO CART
+                            ADD TO CART
                         </button>
                         @*<a class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">ADD TO CART</a>*@
                     </form>
@@ -78,15 +91,4 @@
             </div>
         </div>
     }
-</div>
-
-<div>
-    <ul class="pagination">
-        @for (var i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item" @(i == Model.CurrentPage ? "active" : "")>
-                <a asp-route-currentpage="@i" class="page-link">@i</a>
-            </li>
-        }
-    </ul>
 </div>
