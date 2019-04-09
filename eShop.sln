@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayer", "ServiceLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopWeb", "eShopWeb\eShopWeb.csproj", "{2B651F80-D2CB-4A85-9AB8-A711B8BF5AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAPI", "ShopAPI\ShopAPI.csproj", "{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopAPI", "ShopAPI\ShopAPI.csproj", "{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopUnitTest", "eShopUnitTest\eShopUnitTest.csproj", "{B6E04C4B-1E00-451B-AC63-749069F04386}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E04C4B-1E00-451B-AC63-749069F04386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E04C4B-1E00-451B-AC63-749069F04386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E04C4B-1E00-451B-AC63-749069F04386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E04C4B-1E00-451B-AC63-749069F04386}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
