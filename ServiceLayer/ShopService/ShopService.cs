@@ -18,19 +18,6 @@ namespace ServiceLayer.ShopService
             _shopcontext = shopcontext;
         }
 
-        public IQueryable<ShopDTO> GetPhones()
-        {
-            return (from p in _shopcontext.Phones
-                    select new ShopDTO
-                    {
-                        PhoneID = p.PhoneID,
-                        Price = p.Price,
-                        PhoneName = p.PhoneName,
-                        PhonePhoto = p.Photo.PhonePhoto,
-                        CompanyName = p.Company.CompanyName
-                    });
-        }
-
         public async Task<List<Phone>> GetPhonesAsync(string SearchString, string FirmaNavn, string SortPhone/*, int CurrentPage, int PageSize*/)
         {
             //var telefoner = _shopcontext.Phones
@@ -167,6 +154,32 @@ namespace ServiceLayer.ShopService
         public void RemovePhone(Phone phone)
         {
             _shopcontext.Phones.Remove(phone);
+        }
+
+
+        //API
+
+        public IQueryable<ShopDTO> GetPhones()
+        {
+            return (from p in _shopcontext.Phones
+                    select new ShopDTO
+                    {
+                        PhoneID = p.PhoneID,
+                        Price = p.Price,
+                        PhoneName = p.PhoneName,
+                        PhonePhoto = p.Photo.PhonePhoto,
+                        CompanyName = p.Company.CompanyName
+                    });
+        }
+
+        public void CreatePhonesAPI(Phone phone)
+        {
+            _shopcontext.Phones.Add(phone);
+        }
+
+        public void UpdatePhoneAPI(Phone phone)
+        {
+           _shopcontext.Entry(phone).State = EntityState.Modified;
         }
     }
 }
