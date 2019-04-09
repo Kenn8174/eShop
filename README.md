@@ -41,7 +41,7 @@ tilføje, slette og redigere de forskellige telefoner.
 
 #### Optionelle krav der vedrører Web App og WebAPI
 - [ ] Opret en custom Tag Helper og benyt den i et View
-- [x] Alle metodekald til ServiceLayer er asynkrone (De fleste er)
+- [x] Alle metodekald til ServiceLayer er asynkrone
 - [x] Brug Bootstrap 4 til at fremhæve kontroller med fejl
 - [ ] En udbygget brug af Identity, som f.eks. mulighed for at nulstille password, email bekræftelse og roller.
 - [ ] Der er indbygget Logging af alle transaktioner samt fejl.
