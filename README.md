@@ -25,8 +25,8 @@
 - [x] Overholdelse af POST-REDIRECT-GET design pattern
 - [x] Routing er tilpasset med constraint, hvor det er relevant
 - [x] Anvendt forskellige former for State Management, f.eks. Cookies, TempData, Session Variable og Caching
-- [] Applikationen er klargjort til deployment (Minifying og Bundling, Enviornment osv.)
-- [] Applikation er deplpoyet on-premise
+- [ ] Applikationen er klargjort til deployment (Minifying og Bundling, Enviornment osv.)
+- [ ] Applikation er deplpoyet on-premise
 - [x] Der er lavet et WebAPI med passende URL´s til at tilgå ressourcerne
-- [] ~~Der er taget hensyn til at de hentede objekter fra WevAPI´et skal kunne benyttes af JavaScript kode~~
-- [] Swagger er konfigureret og anvendt
+- [ ] ~~Der er taget hensyn til at de hentede objekter fra WevAPI´et skal kunne benyttes af JavaScript kode~~
+- [ ] Swagger er konfigureret og anvendt
