@@ -1,4 +1,12 @@
 # eShop Projekt Kenneth Jessen
+## Kort beskrivelse af projektet
+Prjektet går ud på at lave en eShop ved hjælp af EF Core og Razor pages. Jeg har valgt at lave mit eshop til en phoneshop,
+det vil sige at jeg "sælger" telefoner på hjemmesiden. Der er muligheder for at browse igennem de forskellige telefoner, samt 
+filtrer, både stigende og faldene og søge på de telefoner der intressere dig. Som administrator har du også muligheden for at 
+tilføje, slette og redigere de forskellige telefoner.
+
+<br/>
+
 ## Diagrammer
 
 #### DataBase diagrammet:
