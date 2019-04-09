@@ -1,4 +1,1 @@
-# eShop
-eShop Projekt (Kenneth Jessen)
-
-![](./eShopERdiagram.PNG "eShop ER diagram")
+# **DEN RIGTIGE BRANCH ER (*DevelopmentAPI*)**
