@@ -60,7 +60,7 @@ namespace eShopWeb.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_shopservice.CheckExist(Phone.PhoneID))
+                if (_shopservice.CheckExist(Phone.PhoneID) == null)
                 {
                     return NotFound();
                 }

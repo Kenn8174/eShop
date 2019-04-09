@@ -38,25 +38,23 @@ namespace ShopAPI.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public ActionResult<Phone> PostCreatePhone(Phone value)
+        public async Task<ActionResult<Phone>> PostCreatePhone(Phone value)
         {
-            _shopService.CreatePhonesAPI(value);
-            _shopService.Commit();
+            await _shopService.CreatePhonesAPI(value);
 
             return CreatedAtAction(nameof(GetPhonesAPI), new { id = value.PhoneID }, value);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public ActionResult<Phone> PutPhone(int id, Phone phone)
+        public async Task<ActionResult<Phone>> PutPhone(int id, Phone phone)
         {
             if (id != phone.PhoneID)
             {
                 return BadRequest();
             }
 
-            _shopService.UpdatePhoneAPI(phone);
-            _shopService.Commit();
+            await _shopService.UpdatePhoneAPI(phone);
 
             return CreatedAtAction(nameof(GetPhonesAPI), new { id = phone.PhoneID }, phone);
         }
@@ -72,8 +70,7 @@ namespace ShopAPI.Controllers
                 return NotFound();
             }
 
-            _shopService.RemovePhone(phone);
-            await _shopService.Commit();
+            await _shopService.RemovePhone(phone);
 
             return CreatedAtAction(nameof(GetPhonesAPI), phone);
         }

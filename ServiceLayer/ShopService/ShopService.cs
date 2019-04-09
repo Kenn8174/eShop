@@ -18,6 +18,14 @@ namespace ServiceLayer.ShopService
             _shopcontext = shopcontext;
         }
 
+
+        public async Task<int> Commit()
+        {
+            await _shopcontext.SaveChangesAsync();
+            return 0;
+        }
+
+
         public async Task<List<Phone>> GetPhonesAsync(string SearchString, string FirmaNavn, string SortPhone/*, int CurrentPage, int PageSize*/)
         {
             //var telefoner = _shopcontext.Phones
@@ -106,26 +114,14 @@ namespace ServiceLayer.ShopService
             return await _shopcontext.Phones.Include(x => x.Company).Include(x => x.Photo).FirstOrDefaultAsync(p => p.PhoneID == id);
         }
 
-        public async Task<int> GetCount()
-        {
-            var data = await _shopcontext.Orders.ToListAsync();
-            return data.Count();
-        }
-
-        public async Task<int> GetPageCount()
-        {
-            var data = await _shopcontext.Phones.ToListAsync();
-            return data.Count();
-        }
-
         public async Task UpdatePhone(Phone phone, int id)
         {
-                    //Virker ikke pga En til En relation med Photo!
+            //Virker ikke pga En til En relation med Photo!
             //_shopcontext.Attach(phone).State = EntityState.Modified;
 
 
-                    //Virker
-            var edit =_shopcontext.Phones.Include(x => x.Company).Include(x => x.Photo).Where(x => x.PhoneID == id).First();
+            //Virker
+            var edit = _shopcontext.Phones.Include(x => x.Company).Include(x => x.Photo).Where(x => x.PhoneID == id).First();
 
             edit.Price = phone.Price;
             edit.Photo.PhonePhoto = phone.Photo.PhonePhoto;
@@ -135,15 +131,21 @@ namespace ServiceLayer.ShopService
             await Commit();
         }
 
-        public async Task<int> Commit()
+        public async Task<bool> CheckExist(int id)
         {
-            await _shopcontext.SaveChangesAsync();
-            return 0;
+            return await _shopcontext.Phones.AnyAsync(p => p.PhoneID == id);
         }
 
-        public bool CheckExist(int id)
+        //public async Task<int> GetCount()
+        //{
+        //    var data = await _shopcontext.Orders.ToListAsync();
+        //    return data.Count();
+        //}
+
+        public async Task<int> GetPageCount()
         {
-            return  _shopcontext.Phones.Any(p => p.PhoneID == id);
+            var data = await _shopcontext.Phones.ToListAsync();
+            return data.Count();
         }
 
         public async Task<Phone> FindPhone(int? id)
@@ -151,9 +153,10 @@ namespace ServiceLayer.ShopService
             return await _shopcontext.Phones.FindAsync(id);
         }
 
-        public void RemovePhone(Phone phone)
+        public async Task RemovePhone(Phone phone)
         {
-            _shopcontext.Phones.Remove(phone);
+             _shopcontext.Phones.Remove(phone);
+            await Commit();
         }
 
 
@@ -172,14 +175,15 @@ namespace ServiceLayer.ShopService
                     });
         }
 
-        public void CreatePhonesAPI(Phone phone)
+        public async Task CreatePhonesAPI(Phone phone)
         {
-            _shopcontext.Phones.Add(phone);
+            await _shopcontext.Phones.AddAsync(phone);
         }
 
-        public void UpdatePhoneAPI(Phone phone)
+        public async Task UpdatePhoneAPI(Phone phone)
         {
            _shopcontext.Entry(phone).State = EntityState.Modified;
+            await Commit();
         }
     }
 }
