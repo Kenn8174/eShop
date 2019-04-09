@@ -15,13 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopAPI", "ShopAPI\ShopAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopUnitTest", "eShopUnitTest\eShopUnitTest.csproj", "{B6E04C4B-1E00-451B-AC63-749069F04386}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dokumentation", "Dokumentation", "{E4BAC213-EA3D-485B-997B-8965987D5396}"
-	ProjectSection(SolutionItems) = preProject
-		ServiceLayer\Dokumentation\eShopDataBaseDiagram.PNG = ServiceLayer\Dokumentation\eShopDataBaseDiagram.PNG
-		ServiceLayer\Dokumentation\eShopDokumentation.md = ServiceLayer\Dokumentation\eShopDokumentation.md
-		ServiceLayer\Dokumentation\eShopERdiagram.PNG = ServiceLayer\Dokumentation\eShopERdiagram.PNG
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
