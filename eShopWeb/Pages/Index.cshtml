@@ -12,13 +12,13 @@
 @*<h1>@cookieValue</h1>
     <h3>@TempData["TempTest"]</h3>*@
 @*@if (Model.basket != null)
-{
-    @foreach (var item in Model.basket)
     {
-        <p>@item.ProductID</p>
-        <p>@item.Amount</p>
-    }
-}*@
+        @foreach (var item in Model.basket)
+        {
+            <p>@item.ProductID</p>
+            <p>@item.Amount</p>
+        }
+    }*@
 
 
 <form>
@@ -55,7 +55,7 @@
     </div>
 </form>
 
-<div class="p-2 row mt-5 bg-light">
+<div class="p-2 row mt-5">
     @foreach (var item in Model.Phone)
     {
         <div class="col-3">
@@ -82,9 +82,8 @@
 
                     <form asp-page="AddOrder" asp-page-handler="AddOrder" asp-route-id="@item.PhoneID" method="post">
                         <button type="submit" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">
-                            ADD TO CART
+                            TILFØJ TIL KURV
                         </button>
-                        @*<a class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">ADD TO CART</a>*@
                     </form>
                 </div>
             </div>

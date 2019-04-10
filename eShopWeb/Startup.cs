@@ -61,9 +61,9 @@ namespace eShopWeb
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+               // app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-                //app.UseStatusCodePagesWithRedirects("/Error");
+                app.UseStatusCodePagesWithRedirects("/Error");
                 //app.UseStatusCodePagesWithReExecute("/Error");
                 //app.UseStatusCodePages();
                 //app.UseDatabaseErrorPage();

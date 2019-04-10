@@ -178,11 +178,12 @@ namespace ServiceLayer.ShopService
         public async Task CreatePhonesAPI(Phone phone)
         {
             await _shopcontext.Phones.AddAsync(phone);
+            await Commit();
         }
 
         public async Task UpdatePhoneAPI(Phone phone)
         {
-           _shopcontext.Entry(phone).State = EntityState.Modified;
+            _shopcontext.Entry(phone).State = EntityState.Modified;
             await Commit();
         }
     }

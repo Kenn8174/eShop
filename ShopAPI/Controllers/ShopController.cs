@@ -47,14 +47,14 @@ namespace ShopAPI.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Phone>> PutPhone(int id, Phone phone)
+        public async Task<ActionResult<Phone>> PutPhone(Phone phone, int id)
         {
-            if (id != phone.PhoneID)
-            {
-                return BadRequest();
-            }
+            //if (id != phone.PhoneID)
+            //{
+            //    return BadRequest();
+            //}
 
-            await _shopService.UpdatePhoneAPI(phone);
+            await _shopService.UpdatePhone(phone, id);
 
             return CreatedAtAction(nameof(GetPhonesAPI), new { id = phone.PhoneID }, phone);
         }
