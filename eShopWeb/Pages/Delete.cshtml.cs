@@ -49,17 +49,6 @@ namespace eShopWeb.Pages
         public async Task<IActionResult> OnPostAsync(int? id)
         {
 
-            if (HttpContext.Session.Get("Basket") != null)
-            {
-                BasketList = JsonConvert.DeserializeObject<List<Basket>>(HttpContext.Session.GetString("Basket"));
-                Basket exist = BasketList.Find(i => i.ProductID == id);
-
-                BasketList.Remove(exist);
-
-                HttpContext.Session.SetString("Basket", JsonConvert.SerializeObject(BasketList));
-            }
-
-
             if (id == null)
             {
                 return NotFound();
@@ -70,6 +59,16 @@ namespace eShopWeb.Pages
             if (Phone != null)
             {
                 await _shopservice.RemovePhone(Phone);
+            }
+
+            if (HttpContext.Session.Get("Basket") != null)
+            {
+                BasketList = JsonConvert.DeserializeObject<List<Basket>>(HttpContext.Session.GetString("Basket"));
+                Basket exist = BasketList.Find(i => i.ProductID == id);
+
+                BasketList.Remove(exist);
+
+                HttpContext.Session.SetString("Basket", JsonConvert.SerializeObject(BasketList));
             }
 
             _cache.Remove("PhoneKey");

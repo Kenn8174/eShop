@@ -11,7 +11,7 @@ namespace ServiceLayer.ShopService.DTO
         public decimal Price { get; set; }
         public string CompanyName { get; set; }
         public string PhonePhoto { get; set; }
-
+        public int CompanyID { get; set; }
         public int PhotoID { get; set; }
     }
 }

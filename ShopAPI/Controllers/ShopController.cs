@@ -6,6 +6,7 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.ShopService;
 using DataLayer;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,6 +24,7 @@ namespace ShopAPI.Controllers
         }
 
         // GET: api/<controller>
+        [EnableCors]
         [HttpGet]
         public ActionResult<IQueryable<Phone>> GetPhonesAPI()
         {
@@ -30,6 +32,7 @@ namespace ShopAPI.Controllers
         }
 
         // GET api/<controller>/5
+        [EnableCors]
         [HttpGet("{id}")]
         public ActionResult<Phone> GetPhonesAPI(int id)
         {
@@ -37,6 +40,7 @@ namespace ShopAPI.Controllers
         }
 
         // POST api/<controller>
+        [EnableCors]
         [HttpPost]
         public async Task<ActionResult<Phone>> PostCreatePhone(Phone value)
         {
@@ -46,6 +50,7 @@ namespace ShopAPI.Controllers
         }
 
         // PUT api/<controller>/5
+        [EnableCors]
         [HttpPut("{id}")]
         public async Task<ActionResult<Phone>> PutPhone(Phone phone, int id)
         {
@@ -60,6 +65,7 @@ namespace ShopAPI.Controllers
         }
 
         // DELETE api/<controller>/5
+        [EnableCors]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Phone>> Delete(int id)
         {

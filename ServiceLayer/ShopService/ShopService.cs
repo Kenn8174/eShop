@@ -171,7 +171,8 @@ namespace ServiceLayer.ShopService
                         Price = p.Price,
                         PhoneName = p.PhoneName,
                         PhonePhoto = p.Photo.PhonePhoto,
-                        CompanyName = p.Company.CompanyName
+                        CompanyName = p.Company.CompanyName,
+                        CompanyID = p.CompanyID
                     });
         }
 

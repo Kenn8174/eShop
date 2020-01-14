@@ -31,7 +31,7 @@
 
                                     <p class="font-weight-bold">Produkt ID: @item.Kurven.ProductID</p>
                                     <p class="font-weight-bold">Telefon: @item.Butikken.CompanyName @item.Butikken.PhoneName</p>
-                                    @if (item.Butikken.Price == 0)
+                                    @if (item.Butikken.Price <= 0)
                                     {
                                         <p class="text-success font-weight-bold">GRATIS</p>
                                     }

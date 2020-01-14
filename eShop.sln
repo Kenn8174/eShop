@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseProgrammering3_Projekt", "DataBaseProgrammering3_Projekt\DataBaseProgrammering3_Projekt.csproj", "{301FB5FE-81FF-4473-93D9-0E4D557123A2}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopWeb", "eShopWeb\eShopW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopAPI", "ShopAPI\ShopAPI.csproj", "{1AD59D9A-FE62-42E8-A68F-5CD6B00DE6FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopUnitTest", "eShopUnitTest\eShopUnitTest.csproj", "{B6E04C4B-1E00-451B-AC63-749069F04386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopUnitTest", "eShopUnitTest\eShopUnitTest.csproj", "{B6E04C4B-1E00-451B-AC63-749069F04386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumTesting", "SeleniumTesting\SeleniumTesting.csproj", "{CD3519C8-0110-40A5-B5F8-FA2104999EC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{B6E04C4B-1E00-451B-AC63-749069F04386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6E04C4B-1E00-451B-AC63-749069F04386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6E04C4B-1E00-451B-AC63-749069F04386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD3519C8-0110-40A5-B5F8-FA2104999EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD3519C8-0110-40A5-B5F8-FA2104999EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD3519C8-0110-40A5-B5F8-FA2104999EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD3519C8-0110-40A5-B5F8-FA2104999EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

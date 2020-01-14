@@ -46,11 +46,11 @@ namespace eShopWeb
             //services.AddDbContext<ShopContext>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
 
-            services.AddMiniProfiler(options =>
-            {
-                options.PopupShowTimeWithChildren = true;
-            })
-            .AddEntityFramework();
+            //services.AddMiniProfiler(options =>
+            //{
+            //    options.PopupShowTimeWithChildren = true;
+            //})
+            //.AddEntityFramework();
 
             services.AddSession();
             services.AddMemoryCache();
@@ -61,10 +61,10 @@ namespace eShopWeb
         {
             if (env.IsDevelopment())
             {
-               // app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-                app.UseStatusCodePagesWithRedirects("/Error");
-                //app.UseStatusCodePagesWithReExecute("/Error");
+                //app.UseStatusCodePagesWithRedirects("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error");
                 //app.UseStatusCodePages();
                 //app.UseDatabaseErrorPage();
 

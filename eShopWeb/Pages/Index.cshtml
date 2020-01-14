@@ -48,7 +48,7 @@
                     <input class="form-control" type="text" asp-for="SearchString" />
                 </div>
                 <div class="col-2">
-                    <input type="submit" value="Filter" class="btn btn-primary form-control" />
+                    <input id="Filter" type="submit" value="Filter" class="btn btn-primary form-control" />
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                     }
 
                     <form asp-page="AddOrder" asp-page-handler="AddOrder" asp-route-id="@item.PhoneID" method="post">
-                        <button type="submit" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">
+                        <button id="@item.PhoneID" type="submit" class="btn float-right text-white fas fa-cart-arrow-down" style="background-color: deepskyblue">
                             TILFØJ TIL KURV
                         </button>
                     </form>

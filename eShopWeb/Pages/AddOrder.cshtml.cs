@@ -79,10 +79,7 @@ namespace eShopWeb.Pages
 
             }
 
-            return RedirectToPage("./Index"/*, new
-            {
-                Products = _shopService.GetPhones()
-            }*/);
+            return RedirectToPage("./Index");
         }
     }
 }
